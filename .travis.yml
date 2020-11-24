@@ -1,0 +1,10 @@
+sudo: required
+language: generic
+services:
+  - docker
+
+before_install:
+  - docker build -t docker-image-name .
+
+script:
+  - docker run docker-image-name npm run lint
