@@ -20,7 +20,7 @@ install dependencies:
 check linter:
   stage: lint
   script:
-    - npm run lint:check
+    - npm run lint
 
 docker registry image:
   stage: registry
