@@ -29,7 +29,7 @@ docker registry image:
     - docker:dind
   script:
     - base64 -d $GCP_SA_KEY | docker login -u _json_key --password-stdin https://gcr.io
-    - docker build --cache-from -t gcr.io/$GCP_PROJECT_ID/$GCP_PROJECT_NAME:latest -t $GCP_REGISTRY_IMAGE:latest .
+    - docker build --pull -t gcr.io/$GCP_PROJECT_ID/$GCP_PROJECT_NAME:latest .
     - docker push gcr.io/$GCP_PROJECT_ID/$GCP_PROJECT_NAME:latest
   environment:
     name: ${CI_COMMIT_REF_NAME}
