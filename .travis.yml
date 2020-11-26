@@ -6,5 +6,13 @@ services:
 before_install:
   - docker build -t docker-image-name .
 
-script:
-  - docker run docker-image-name npm run lint
+jobs:
+  include:
+    - stage: lint
+      script:
+        - docker run docker-image-name npm run lint
+    - stage: build
+      script:
+        - base64 -d $GCP_SA_KEY | docker login -u _json_key --password-stdin https://gcr.io
+        - docker build --cache-from -t gcr.io/$GCP_PROJECT_ID/$GCP_PROJECT_NAME:latest -t $GCP_REGISTRY_IMAGE:latest .
+        - docker push gcr.io/$GCP_PROJECT_ID/$GCP_PROJECT_NAME:latest
