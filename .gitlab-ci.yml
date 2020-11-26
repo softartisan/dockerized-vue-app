@@ -9,7 +9,7 @@ cache:
 
 stages:
   - build
-  - test
+  - lint
   - registry
 
 install dependencies:
